@@ -99,4 +99,13 @@ public class CommandLineHelpertTest {
                 "Cannot use the port option or use multiple libraries when specifying libraries in the form classname:port");
     }
 
+    @Test
+    public void useCtorPar() {
+        CommandLineHelper clh = new CommandLineHelper(new String[] { "--library", "java.lang.String:/one:x", "--port",
+                "4444" });
+        Assert.assertEquals(clh.getError(), null);
+        Assert.assertEquals(clh.getPort(), 4444);
+        Assert.assertEquals(clh.getLibraryMap().get("/one").getClass(), String.class);
+        Assert.assertEquals(clh.getLibraryMap().get("/one"), "x");
+    }
 }
